@@ -1,4 +1,5 @@
 # import modules
+import time
 import RPi.GPIO as GPIO  # import GPIO
 from hx711 import HX711  # import the class HX711
 from tkinter import *
@@ -13,7 +14,7 @@ def weight_sensor():
     return int(hx.get_raw_data_mean())  # returns the measured weight when ran
 
 
-weight = weight_sensor()  # names weight and puts the number into your function; WON'T be used in final code
+print(weight_sensor())  # NOT in final code; returns weight sensor value; code skips over def weight_sensor till now
 
 
 # set up motors
