@@ -8,4 +8,4 @@ def weight_sensor():
     hx = HX711(dout_pin=21, pd_sck_pin=20)  # create an object
     print(hx.get_raw_data_mean())  # get raw data reading from hx711
     GPIO.cleanup()
-    return(hx.get_raw_data_mean)
+    return hx.get_raw_data_mean
