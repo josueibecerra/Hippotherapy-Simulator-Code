@@ -14,7 +14,7 @@ def weight_sensor():
     return int(hx.get_raw_data_mean())  # returns the measured weight when ran
 
 
-print(weight_sensor())  # NOT in final code; returns weight sensor value; code skips over def weight_sensor till now
+print(weight_sensor())  # NOT in final code; returns weight sensor value; code skips over def weight_sensor(): till now
 
 
 # set up motors
