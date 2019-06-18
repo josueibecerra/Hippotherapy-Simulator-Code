@@ -22,5 +22,3 @@ print(weight_sensor())  # NOT in final code; returns weight sensor value; code s
 
 # Start of GUI
 win = Tk()
-
-
