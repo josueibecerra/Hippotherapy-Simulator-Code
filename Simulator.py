@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+# set up weight sensors
 import RPi.GPIO as GPIO  # import GPIO
 from hx711 import HX711  # import the class HX711
 
@@ -9,3 +9,7 @@ def weight_sensor():
     print(hx.get_raw_data_mean())  # get raw data reading from hx711
     GPIO.cleanup()
     return hx.get_raw_data_mean()
+
+# set up motors
+
+# Start of GUI
