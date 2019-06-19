@@ -34,5 +34,8 @@ def start_motors(tf, output_control):  # runs motors relative to weight; replace
     GPIO.cleanup()
 
 
+start_motors(20, 0.5)  # NOT in final code; runs motors for 20 seconds at half of the persons weight
+
+
 # Start of GUI
 win = Tk()
