@@ -17,7 +17,21 @@ def measure_weight():
 print(measure_weight())  # NOT in final code; returns weight sensor value; code skips over def weight_sensor(): till now
 
 
-# set up motors
+# set up motors and run motors;
+def init_motors():
+    GPIO.setmode(GPIO.BOARD)
+    GPIO.setup(7, GPIO.OUT)
+    GPIO.setup(11, GPIO.OUT)
+
+
+def start_motors(tf, output_control):  # runs motors relative to weight; replace later with excel formula
+    init_motors()
+    motor1 = GPIO.PWM(7, 100)
+    motor2 = GPIO.PWM(11, 100)
+    motor1.start(measure_weight()*output_control())  # number in parentheses must be a percent of power output
+    motor2.start(measure_weight()*output_control())
+    time.sleep(tf)
+    GPIO.cleanup()
 
 
 # Start of GUI
