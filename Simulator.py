@@ -28,7 +28,7 @@ def start_motors(tf, output_control):  # runs motors relative to weight; replace
     init_motors()
     motor1 = GPIO.PWM(7, 100)
     motor2 = GPIO.PWM(11, 100)
-    while measure_weight()*output_control()>=100:
+    while measure_weight()*output_control() >= 100:
         motor1.start(measure_weight()*output_control())  # number in parentheses must be a percent of power output
         motor2.start(measure_weight()*output_control())
     else:
