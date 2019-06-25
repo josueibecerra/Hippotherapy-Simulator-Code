@@ -11,8 +11,8 @@ def stop():
 
 root = Tk()
 
-start_button = Button(root, text='START', bg='grey', command=test)
-stop_button = Button(root, text='STOP', bg='red', command=test2)
+start_button = Button(root, text='START', bg='grey', command=start)
+stop_button = Button(root, text='STOP', bg='red', command=stop)
 start_button.pack()
 stop_button.pack()
 
