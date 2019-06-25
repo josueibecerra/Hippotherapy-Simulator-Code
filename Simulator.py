@@ -14,7 +14,7 @@ def measure_weight():
     return int(hx.get_raw_data_mean())  # returns the measured weight when ran
 
 
-print(measure_weight())  # NOT in final code; returns weight sensor value; code skips over def weight_sensor(): till now
+#print(measure_weight())  # NOT in final code; returns weight sensor value; code skips over def weight_sensor(): till now
 
 
 # set up motors and run motors;
@@ -52,7 +52,7 @@ def stop_motors():
 # Start of GUI
 root = Tk()
 
-start_button = Button(root, text='START', bg='grey', command=start_motors(20, 0.5)) # NOT in final code; runs motors for 20 seconds at half of the persons weight
+start_button = Button(root, text='START', bg='grey', command=start_motors(20, 0.5)) #runs motors for 20 seconds at half of the persons weight
 stop_button = Button(root, text='STOP', bg='red', command=stop_motors)
 start_button.pack()
 stop_button.pack()

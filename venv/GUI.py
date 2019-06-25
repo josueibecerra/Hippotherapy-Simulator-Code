@@ -1,12 +1,12 @@
 from tkinter import *
 
 
-def test():
-    print('Test')
+def start():
+    print('Started')
 
 
-def test2():
-    print('Test2')
+def stop():
+    print('Stopped')
 
 
 root = Tk()
