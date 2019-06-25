@@ -26,7 +26,7 @@ def init_motors():
 
 def start_motors(tf, output_control):  # runs motors relative to weight; replace later with excel formula
     init_motors()
-    motor1 = GPIO.PWM(7, 100)
+    motor1 = GPIO.PWM(7, 100)  # 100 is the frequency
     motor2 = GPIO.PWM(11, 100)
     while measure_weight()*output_control() <= 100:
         motor1.start(measure_weight()*output_control())  # number in parentheses must be a percent of power output
@@ -38,8 +38,23 @@ def start_motors(tf, output_control):  # runs motors relative to weight; replace
     GPIO.cleanup()
 
 
-start_motors(20, 0.5)  # NOT in final code; runs motors for 20 seconds at half of the persons weight
+def stop_motors():
+    init_motors()
+    motor1 = GPIO.PWM(7, 100)
+    motor2 = GPIO.PWM(11, 100)
+    motor1.start(0)
+    motor2.start(0)
+
+
+#start_motors(20, 0.5)  # NOT in final code; runs motors for 20 seconds at half of the persons weight
 
 
 # Start of GUI
-win = Tk()
+root = Tk()
+
+start_button = Button(root, text='START', bg='grey', command=start_motors(20, 0.5)) # NOT in final code; runs motors for 20 seconds at half of the persons weight
+stop_button = Button(root, text='STOP', bg='red', command=stop_motors)
+start_button.pack()
+stop_button.pack()
+
+root.mainloop()
