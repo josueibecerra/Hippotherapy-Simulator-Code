@@ -15,6 +15,9 @@ def measure_weight():
         return int(hx.get_raw_data_mean())  # returns the measured weight when ran
     except FileNotFoundError:
         print('File Not Found Error: Weight Not Measured')
+    finally:
+        pass
+        print('Weight Could Not Be Measured')
 
 
 # set up motors and run motors;
@@ -25,6 +28,9 @@ def init_motors():
         GPIO.setup(11, GPIO.OUT)
     except FileNotFoundError:
         print('File Not Found Error: Could Not Initiate Motors')
+    finally:
+        pass
+        print('Could Not Initiate Motors')
 
 
 def start_motors():  # runs motors relative to weight; replace later with excel formula
@@ -44,6 +50,9 @@ def start_motors():  # runs motors relative to weight; replace later with excel 
         print('Attribute Error: Could Not Start Motors (Likely PWM not found)')
     except FileNotFoundError:
         print('File Not Found: Could Not Start Motors')
+    finally:
+        pass
+        print('Could Not Start Motors')
 
 
 def stop_motors():
@@ -58,6 +67,9 @@ def stop_motors():
         print('Attribute Error: Could Not Stop Motors (Likely PWM not found)')
     except FileNotFoundError:
         print('File Not Found Error: Could Not Stop Motors')
+    finally:
+        pass
+        print('Could Not Stop Motors')
 
 
 output_control = 0.5  # runs motors at half of the persons weight; Will be adjusted
