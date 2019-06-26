@@ -17,7 +17,6 @@ def measure_weight():
         print('File Not Found Error: Weight Not Measured')
     finally:
         pass
-        print('Weight Could Not Be Measured')
 
 
 # set up motors and run motors;
@@ -30,49 +29,62 @@ def init_motors():
         print('File Not Found Error: Could Not Initiate Motors')
     finally:
         pass
-        print('Could Not Initiate Motors')
 
 
 def start_motors():  # runs motors relative to weight; replace later with excel formula
-    try:
-        init_motors()
-        motor1 = GPIO.PWM(7, 100)  # 100 is the frequency
-        motor2 = GPIO.PWM(11, 100)
-        while 0 <= measure_weight() * output_control <= 100:
-            motor1.start(measure_weight() * output_control)  # number in parentheses must be a percent of power output
-            motor2.start(measure_weight() * output_control)
-        else:
-            motor1.start(100)
-            motor2.start(100)
-        GPIO.cleanup()
-        print('Motors Started')
-    except AttributeError:
-        print('Attribute Error: Could Not Start Motors (Likely PWM not found)')
-    except FileNotFoundError:
-        print('File Not Found: Could Not Start Motors')
-    finally:
-        pass
-        print('Could Not Start Motors')
+    global motors_started  # allows variables to be referenced within a function
+    if motors_started:
+        print('Motors Already Started')
+    else:
+        try:
+            init_motors()
+            motor1 = GPIO.PWM(7, 100)  # 100 is the frequency
+            motor2 = GPIO.PWM(11, 100)
+            while 0 <= measure_weight() * output_control <= 100:
+                motor1.start(
+                    measure_weight() * output_control)  # number in parentheses must be a percent of power output
+                motor2.start(measure_weight() * output_control)
+            else:
+                motor1.start(100)
+                motor2.start(100)
+            GPIO.cleanup()
+            motors_started = True
+            print('Motors Started')
+        except AttributeError:
+            motors_started = False
+            print('Attribute Error: Could Not Start Motors (Likely PWM not found)')
+        except FileNotFoundError:
+            motors_started = False
+            print('File Not Found: Could Not Start Motors')
+        finally:
+            pass
 
 
 def stop_motors():
-    try:
-        init_motors()
-        motor1 = GPIO.PWM(7, 100)
-        motor2 = GPIO.PWM(11, 100)
-        motor1.start(0)
-        motor2.start(0)
-        print('Motors Stopped')
-    except AttributeError:
-        print('Attribute Error: Could Not Stop Motors (Likely PWM not found)')
-    except FileNotFoundError:
-        print('File Not Found Error: Could Not Stop Motors')
-    finally:
-        pass
-        print('Could Not Stop Motors')
+    global motors_started
+    if not motors_started:
+        print('Motors Already Stopped')
+    else:
+        try:
+            init_motors()
+            motor1 = GPIO.PWM(7, 100)
+            motor2 = GPIO.PWM(11, 100)
+            motor1.start(0)
+            motor2.start(0)
+            print('Motors Stopped')
+            motors_started = False
+        except AttributeError:
+            print('Attribute Error: Could Not Stop Motors (Likely PWM not found)')
+        except FileNotFoundError:
+            print('File Not Found Error: Could Not Stop Motors')
+        finally:
+            pass
 
 
+# Initial Conditions Set
 output_control = 0.5  # runs motors at half of the persons weight; Will be adjusted
+motors_started = False  # initial state of the motors is not started; 1:40:00
+
 
 # Start of GUI
 root = Tk()

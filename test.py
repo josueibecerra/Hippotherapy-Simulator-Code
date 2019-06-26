@@ -1,5 +1,6 @@
-def test():
-    return 1
-
-
-print(test())
+try:
+    print('test1')
+except AttributeError:
+    print('test2')
+else:
+    print('test3')
