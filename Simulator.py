@@ -2,7 +2,7 @@
 import time
 import RPi.GPIO as GPIO  # import GPIO
 from hx711 import HX711  # import the class HX711
-from tkinter import *
+import tkinter as tk
 
 
 # set up weight sensors
@@ -87,11 +87,13 @@ motors_started = False  # initial state of the motors is not started; 1:40:00
 
 
 # Start of GUI
-root = Tk()
+root = tk.Tk()
 
-start_button = Button(root, text='START', bg='grey', command=start_motors)
-stop_button = Button(root, text='STOP', bg='red', command=stop_motors)
-start_button.pack()
-stop_button.pack()
+root.geometry('480x320')
+
+start_button = tk.Button(root, text='START', bg='grey', command=start_motors)
+stop_button = tk.Button(root, text='STOP', bg='red', command=stop_motors)
+start_button.pack(side='top', expand=True, fill='both')
+stop_button.pack(side='bottom', expand=True, fill='both')
 
 root.mainloop()
