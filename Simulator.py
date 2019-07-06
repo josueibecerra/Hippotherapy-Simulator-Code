@@ -16,6 +16,7 @@ def measure_weight():
     except FileNotFoundError:
         print('File Not Found Error: Weight Not Measured')
     finally:
+        GPIO.cleanup()
         pass
 
 
@@ -57,6 +58,7 @@ def start_motors():  # runs motors relative to weight; replace later with excel 
             motors_started = False
             print('File Not Found: Could Not Start Motors')
         finally:
+            GPIO.cleanup()
             pass
 
 
@@ -78,6 +80,7 @@ def stop_motors():
         except FileNotFoundError:
             print('File Not Found Error: Could Not Stop Motors')
         finally:
+            GPIO.cleanup()
             pass
 
 
