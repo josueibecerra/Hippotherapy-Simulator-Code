@@ -29,7 +29,7 @@ def set_end():
 
 
 def get_rpm(c):
-    global count  # delcear the count variable global so we can edit it
+    global count  # declare the count variable global so we can edit it
 
     if not count:
         set_start()  # create start time
@@ -50,7 +50,7 @@ GPIO.add_event_detect(sensor, GPIO.RISING,
                       callback=get_rpm)  # execute the get_rpm function when a HIGH signal is detected
 
 try:
-    while True:  # create an infinte loop to keep the script running
+    while True:  # create an infinite loop to keep the script running
         time.sleep(0.1)
 except KeyboardInterrupt:
     print('Quit')
