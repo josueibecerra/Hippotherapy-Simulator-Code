@@ -11,7 +11,7 @@ sensor = 21  # define the GPIO pin our sensor is attached to
 GPIO.setmode(GPIO.BCM)  # set GPIO numbering system to BCM
 GPIO.setup(sensor, GPIO.IN)  # set our sensor pin to an input
 
-sample = 1000  # how many half revolutions to time
+sample = 10  # how many half revolutions to time
 count = 0
 
 start = 0
@@ -28,7 +28,7 @@ def set_end():
     end = time.time()
 
 
-def get_rpm(c):
+def get_rpm():
     global count  # declare the count variable global so we can edit it
 
     if not count:
@@ -44,17 +44,6 @@ def get_rpm(c):
         rpm = (sample / delta) / 2  # converted to time for a full single rotation
         print(rpm)
         count = 0  # reset the count to 0
-
-
-GPIO.add_event_detect(sensor, GPIO.RISING,
-                      callback=get_rpm)  # execute the get_rpm function when a HIGH signal is detected
-
-try:
-    while True:  # create an infinite loop to keep the script running
-        time.sleep(0.1)
-except KeyboardInterrupt:
-    print('Quit')
-    GPIO.cleanup()
 
 
 # set up weight sensors
@@ -78,6 +67,8 @@ def init_motors():
         GPIO.setmode(GPIO.BOARD)
         GPIO.setup(7, GPIO.OUT)
         GPIO.setup(11, GPIO.OUT)
+        GPIO.add_event_detect(sensor, GPIO.RISING,
+                              callback=get_rpm)  # execute the get_rpm function when a HIGH signal is detected
     except FileNotFoundError:
         print('File Not Found Error: Could Not Initiate Motors')
     finally:
