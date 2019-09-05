@@ -59,11 +59,11 @@ GPIO.add_event_detect(sensor, GPIO.RISING,
 
 try:
     while True:  # create an infinite loop to keep the script running
-        if desired_rpm <= rpm and i<=100:
+        if desired_rpm >= rpm and i<=100:
             i+=i
             p.ChangeDutyCycle(i)
             time.sleep(0.02)
-        if desired_rpm >= rpm and i>=0:
+        if desired_rpm <= rpm and i>=0:
             i-=i
             p.ChangeDutyCycle(i)
             time.sleep(0.02)
