@@ -3,7 +3,7 @@ import time
 import tkinter as tk
 
 rpm = 0
-power_output=0
+power_output = 0
 sensor = 40  # define the GPIO pin our sensor is attached to
 
 sample = 20  # how many half revolutions to time
@@ -14,15 +14,13 @@ end = 0
 
 desired_rpm = 1500
 
+loop_index = 0   #loop index
 
 GPIO.setmode(GPIO.BOARD)  # set GPIO numbering system to BOARD
 GPIO.setup(sensor, GPIO.IN)  # set our sensor pin to an input
-
-
 GPIO.setup(7, GPIO.OUT)
 
 p= GPIO.PWM(7, 207)
-
 p.start(0)
 
 
@@ -57,6 +55,11 @@ def get_rpm(c):
 
 
 def start_program():
+    GPIO.setmode(GPIO.BOARD)
+    GPIO.setup(sensor, GPIO.IN)  # set our sensor pin to an input
+    GPIO.setup(7, GPIO.OUT)
+    global p
+    p.start(0)
     GPIO.add_event_detect(sensor, GPIO.RISING,
                       callback=get_rpm)  # execute the get_rpm function when a HIGH signal is detected
     global power_output
@@ -64,6 +67,8 @@ def start_program():
 
     try:
         while True:  # create an infinite loop to keep the script running
+            if loop_index % 10 == 0:
+                root.update()
             if desired_rpm >= rpm and power_output<100:
                 power_output=power_output+1
                 p.ChangeDutyCycle(power_output)
@@ -83,7 +88,8 @@ def start_program():
 def stop_program():
     try:
         p.stop()
-        GPIO.Cleanup
+        GPIO.cleanup()
+        program_started = False
     except KeyboardInterrupt:
         print('Quit')
         GPIO.cleanup()
