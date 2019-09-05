@@ -2,7 +2,7 @@ import RPi.GPIO as GPIO
 import time
 
 rpm = 0
-i=0
+power_output=0
 sensor = 40  # define the GPIO pin our sensor is attached to
 
 sample = 20  # how many half revolutions to time
@@ -45,6 +45,7 @@ def get_rpm(c):
         count = count + 1
 
     if count == sample:
+        global rpm
         set_end()  # create end time
         delta = end - start  # time taken to do a half rotation in seconds
         delta = delta / 60  # converted to minutes
@@ -59,14 +60,14 @@ GPIO.add_event_detect(sensor, GPIO.RISING,
 
 try:
     while True:  # create an infinite loop to keep the script running
-        if desired_rpm >= rpm and i<=100:
-            i+=i
-            p.ChangeDutyCycle(i)
-            time.sleep(0.02)
-        if desired_rpm <= rpm and i>=0:
-            i-=i
-            p.ChangeDutyCycle(i)
-            time.sleep(0.02)
+        if desired_rpm >= rpm and power_output<100:
+            power_output=power_output+1
+            p.ChangeDutyCycle(power_output)
+            time.sleep(0.5)
+        if desired_rpm <= rpm and power_output>0:
+            power_output=power_output-1
+            p.ChangeDutyCycle(power_output)
+            time.sleep(0.5)
 except KeyboardInterrupt:
     print('Quit')
     GPIO.cleanup()
